@@ -30,7 +30,7 @@ export default function App() {
       </nav>
     
       <h2 className="scroll-m-20 border-b pb-2 text-white pt-6 text-3xl font-semibold tracking-tight first:mt-0">
-        D.A.R.T Formations
+        D.A.R.T. Formations
       </h2>
       <div className=" flex flex-col text-white justify-center w-2/4">
         <FormationCard
