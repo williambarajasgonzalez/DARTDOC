@@ -14,15 +14,15 @@ export default function App() {
   const setPosition = useTeamLeaderStore((s) => s.setPosition);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-neutral-800 text-white px-4 py-6 space-y-6 overflow-auto">
+    <div className="w-full h-screen flex flex-col items-center bg-neutral-800">
       {/* Header and Controls */}
-      <div className="flex gap-4">
-        <img className="w-20 rounded-2xl shadow-2xl" src="/logo/doclogo.png"/>
-        <h1 className="text-4xl font-bold mb-2">D.A.R.T. Formations</h1>
+      <div className="flex gap-4 p-4 w-full backdrop-blur-xl bg-white/80 items-center justify-start border-2">
+        <img className="w-14 rounded-2xl shadow-2xl" src="/logo/doclogo.png"/>
+        <h1 className="text-lg font-bold mb-2 text-black ">D.A.R.T. Formations</h1>
       </div>
     
       {/* Descriptions */}
-      <div className="w-full flex gap-3 justify-center text-left">
+      <div className="w-full flex gap-3 justify-center text-left my-8">
         <FormationCard
           title="1. Line Formation"
           points={[
@@ -47,17 +47,21 @@ export default function App() {
             "Useful when space prevents full squad spread.",
           ]}
         />
+        
       </div>
 
-      {/* 3D Viewer */}
+      <div className="flex gap-4 justify-center rounded-xl mb-4">
+          <Button variant="secondary" onClick={() => setPosition("Line")}>Line</Button>
+          <Button variant="secondary"onClick={() => setPosition("Squad")}>Squad</Button>
+          <Button variant="secondary" onClick={() => setPosition("Modified")}>Modified</Button>
+      </div>
+
       <div className="w-full h-[550px] rounded-lg overflow-hidden border border-neutral-600 shadow-lg">
         <DARTPosition />
       </div>
-      {/* Formation Button */}
-      <div className="flex gap-4 justify-center bg-neutral-700 border border-neutral-600 p-3 rounded-xl shadow-lg ">
-          <Button onClick={() => setPosition("Line")}>Line</Button>
-          <Button onClick={() => setPosition("Squad")}>Squad</Button>
-          <Button onClick={() => setPosition("Modified")}>Modified</Button>
+
+      <div className="backdrop-blur-xl bg-white/80 w-full">
+          
       </div>
         
     </div>
@@ -67,9 +71,9 @@ export default function App() {
 // Description Card Component
 function FormationCard({ title, points }) {
   return (
-    <div className="bg-neutral-700 border border-neutral-600 p-3 rounded-xl shadow-lg">
+    <div className="backdrop-blur-xl bg-white/80 border border-neutral-600 p-3 rounded-xl shadow-lg">
       <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      <ul className="list-disc list-inside text-sm text-gray-200 space-y-1">
+      <ul className="list-disc list-inside text-sm space-y-1">
         {points.map((pt, idx) => (
           <li key={idx}>{pt}</li>
         ))}

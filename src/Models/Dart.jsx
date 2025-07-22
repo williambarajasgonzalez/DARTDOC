@@ -1,7 +1,7 @@
-import { Html } from "@react-three/drei";
+import { Html, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { RigidBody } from "@react-three/rapier";
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { useTeamLeaderStore } from "../useTeamLeaderStore";
 import * as THREE from "three";
 import {
@@ -13,9 +13,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 export default function () {
   const position = useTeamLeaderStore((s) => s.position);
+  const {scene} = useGLTF("/GLTFModel/12shotgun.glb")
+  const {scene: weapon} = useGLTF("/GLTFModel/40mm.glb")
+  const shotgunModel = () => clone(scene)
+  const weaponModel = () => clone(weapon)
   const groupRef = useRef();
   const memberOneRef = useRef();
   const memberTwoRef = useRef();
@@ -37,23 +42,23 @@ export default function () {
     { x: 12.5, y: 1, z: 10, r: memberSevenRef },
   ];
   const SQUAD = [
-    { x: 20, y: 1, z: 10, r: memberOneRef },
-    { x: 15, y: 1, z: 5, r: memberTwoRef },
+    { x: 20, y: 1, z: 17, r: memberOneRef },
+    { x: 15, y: 1, z: 9, r: memberTwoRef },
     { x: 10, y: 1, z: 0, r: memberThreeRef },
     { x: 15, y: 1, z: 0, r: memberFourRef },
-    { x: 10, y: 1, z: 5, r: memberFiveRef },
-    { x: 5, y: 1, z: 10, r: memberSixRef },
+    { x: 10, y: 1, z: 9, r: memberFiveRef },
+    { x: 5, y: 1, z: 17, r: memberSixRef },
     { x: 12.5, y: 1, z: -20, r: memberSevenRef },
   ];
 
   const MODIFIED = [
-    { x: 15, y: 1, z: 10, r: memberOneRef },
-    { x: 10, y: 1, z: 5, r: memberTwoRef },
-    { x: 5, y: 1, z: 0, r: memberThreeRef },
-    { x: 20, y: 1, z: 0, r: memberFourRef },
-    { x: 15, y: 1, z: 5, r: memberFiveRef },
-    { x: 10, y: 1, z: 10, r: memberSixRef },
-    { x: 12.5, y: 1, z: -25, r: memberSevenRef },
+    { x: 16, y: 1, z: 17, r: memberOneRef },
+    { x: 11, y: 1, z: 9, r: memberTwoRef },
+    { x: 7, y: 1, z: 0, r: memberThreeRef },
+    { x: 18, y: 1, z: 0, r: memberFourRef },
+    { x: 13, y: 1, z: 9, r: memberFiveRef },
+    { x: 8, y: 1, z: 17, r: memberSixRef },
+    { x: 12.5, y: 1, z: -20, r: memberSevenRef },
   ];
   useFrame(() => {
     if (!groupRef) return;
@@ -190,7 +195,6 @@ export default function () {
   const Member = ({ info }) => {
     const isGasGun = info.weapon.includes("37 mm");
     const weaponImage = isGasGun ? gun37 : shotgun;
-  
     return (
       <Html className=" select-none" center>
         <Dialog>
@@ -250,42 +254,54 @@ export default function () {
             <meshStandardNodeMaterial color={"blue"} />
             <Member info={memberInformation[0]} />
           </mesh>
+          <primitive scale={[1.5,1.5,1.5]} rotation={[0,2,1.5]} position={[0,1,-5]} object={shotgunModel()}/> 
         </RigidBody>
+        
         <RigidBody ref={memberTwoRef} type="kinematicPosition">
           <mesh position={[5, 1, 0]}>
             <capsuleGeometry args={[3, 3]} />
             <meshStandardNodeMaterial color={"brown"} />
             <Member info={memberInformation[1]}/>
           </mesh>
+          <primitive scale={[6,6,6]} rotation={[1.5,0,-1.7]} position={[5,1,-4]} object={weaponModel()}/> 
         </RigidBody>
+
         <RigidBody ref={memberThreeRef} type="kinematicPosition">
           <mesh position={[10, 1, 0]}>
             <capsuleGeometry args={[3, 3]} />
             <meshStandardNodeMaterial color={"blue"} />
-            <Member info={memberInformation[4]}/>
+            <Member info={memberInformation[2]}/>
           </mesh>
+          <primitive scale={[1.5,1.5,1.5]} rotation={[0,2,1.5]} position={[9,1,-5]} object={shotgunModel()}/> 
         </RigidBody>
+
         <RigidBody ref={memberFourRef} type="kinematicPosition">
           <mesh position={[15, 1, 0]}>
             <capsuleGeometry args={[3, 3]} />
             <meshStandardNodeMaterial color={"blue"} />
             <Member info={memberInformation[3]}/>
           </mesh>
+          <primitive scale={[1.5,1.5,1.5]} rotation={[0,2,1.5]} position={[13,1,-5]} object={shotgunModel()}/> 
         </RigidBody>
+
         <RigidBody ref={memberFiveRef} type="kinematicPosition">
           <mesh position={[20, 1, 0]}>
             <capsuleGeometry args={[3, 3]} />
             <meshStandardNodeMaterial color={"brown"} />
             <Member info={memberInformation[4]}/>
           </mesh>
+          <primitive scale={[6,6,6]} rotation={[1.5,0,-1.7]} position={[20,1,-4]} object={weaponModel()}/> 
         </RigidBody>
+
         <RigidBody ref={memberSixRef} type="kinematicPosition">
           <mesh position={[25, 1, 0]}>
             <capsuleGeometry args={[3, 3]} />
             <meshStandardNodeMaterial color={"blue"} />
             <Member info={memberInformation[5]}/>
           </mesh>
+          <primitive scale={[1.5,1.5,1.5]} rotation={[0,2,1.5]} position={[23,1,-5]} object={shotgunModel()}/> 
         </RigidBody>
+
         <RigidBody ref={memberSevenRef} type="kinematicPosition">
           <mesh position={[12.5, 1, 10]}>
             <capsuleGeometry args={[3, 3]} />
@@ -297,3 +313,5 @@ export default function () {
     </>
   );
 }
+
+useGLTF.preload("/GLTFModel/12shotgun.glb")
