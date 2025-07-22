@@ -20,6 +20,8 @@ import {
   } from "three/tsl";
 
 export default function Platform() {
+  const {scene} = useGLTF("/GLTFModel/dartplatform.glb")
+
   const { tslNodes } = useMemo(() => {
     const uVu = uv().mul(15)
     const noise = mx_fractal_noise_vec3(uVu)
@@ -39,6 +41,7 @@ export default function Platform() {
           <meshStandardNodeMaterial {...tslNodes} />
         </mesh>
       </RigidBody>
+      
     </>
   );
 }

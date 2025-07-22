@@ -66,7 +66,7 @@ export default function App() {
           <Button variant="secondary" onClick={() => setPosition("Modified")}>Modified</Button>
       </div>
 
-      <div className="w-full h-[550px] p-8 z-10">
+      <div className="w-full h-[600px] p-6 z-10">
         <DARTPosition />
       </div>
 
@@ -75,7 +75,7 @@ export default function App() {
       <h2 className="scroll-m-20 text-white text-center pb-2 pt-12 text-3xl font-semibold tracking-tight first:mt-0">
             D.A.R.T Movement
       </h2>
-      <div className="w-full h-[550px] p-8 z-10">
+      <div className="w-full h-[600px] p-6 z-10">
         <DARTmovement />
       </div>
     </div>

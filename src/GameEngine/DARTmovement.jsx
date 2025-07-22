@@ -6,7 +6,7 @@ import { PostProcessing } from "./PostProcessing";
 import Experience from "./Experience";
 import {useControls} from "leva"
 import * as THREE from "three/webgpu";
-import Platform from "@/Models/Platform";
+import { PlatfromMovement } from "@/Models/PlatfromMovement";
 export default function DARTmovement() {
     
   return (
@@ -27,7 +27,7 @@ export default function DARTmovement() {
         <ambientLight intensity={2.0} />
         <Suspense fallback={<Html><h1>loading...</h1></Html>}>
           <Physics>
-            <Platform/>
+            <PlatfromMovement/>
           </Physics>
         </Suspense>
         <PostProcessing />
