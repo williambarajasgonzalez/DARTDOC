@@ -31,6 +31,7 @@ export default function () {
   const memberSevenRef = useRef();
   const shotgun = "/shotgun/shotgun.png"
   const gun37 = "/37/37mm.png"
+  const lead7 = "member7/teamleader.png"
   const SPEED = 0.02;
   const LINE = [
     { x: 0, y: 1, z: 0, r: memberOneRef },
@@ -194,7 +195,8 @@ export default function () {
   ]
   const Member = ({ info }) => {
     const isGasGun = info.weapon.includes("37 mm");
-    const weaponImage = isGasGun ? gun37 : shotgun;
+    let weaponImage = isGasGun ? gun37 : shotgun
+    if(info.button === "#7")weaponImage = lead7
     return (
       <Html className=" select-none" center>
         <Dialog>
@@ -305,7 +307,7 @@ export default function () {
         <RigidBody ref={memberSevenRef} type="kinematicPosition">
           <mesh position={[12.5, 1, 10]}>
             <capsuleGeometry args={[3, 3]} />
-            <meshStandardNodeMaterial color={"red"} />
+            <meshStandardNodeMaterial color={"purple"} />
             <Member info={memberInformation[6]}/>
           </mesh>
         </RigidBody>

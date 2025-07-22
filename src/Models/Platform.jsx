@@ -30,8 +30,7 @@ export default function Platform() {
       },
     };
   }, []);
-  const {scene} = useGLTF("/GLTFModel/Camera stand.glb")
-
+ 
   return (
     <>
       <RigidBody type="fixed">
@@ -40,8 +39,7 @@ export default function Platform() {
           <meshStandardNodeMaterial {...tslNodes} />
         </mesh>
       </RigidBody>
-      <primitive scale={[4,4,4]} object={scene} position={[25,0,35]}/>
     </>
   );
 }
-useGLTF.preload("/GLTFModel/Camera stand.glb")
+

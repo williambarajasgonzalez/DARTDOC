@@ -4,11 +4,7 @@ import { pass, mrt, emissive, output } from "three/tsl";
 import * as THREE from "three/webgpu";
 import { bloom } from "three/examples/jsm/tsl/display/BloomNode.js";
 
-export const PostProcessing = ({
-  strength = 0,
-  radius = 0.5,
-  threshold = 0.25,
-}) => {
+export const PostProcessing = () => {
   const { gl: renderer, scene, camera } = useThree();
   const postProcessingRef = useRef(null);
   const bloomPassRef = useRef(null);
@@ -28,7 +24,7 @@ export const PostProcessing = ({
     const outputPass = scenePass.getTextureNode("output");
     const emissivePass = scenePass.getTextureNode("emissive");
 
-    const bloomPass = bloom(emissivePass, strength, radius, threshold);
+    const bloomPass = bloom(emissivePass, 0.2, 0.5, 0.25);
     bloomPassRef.current = bloomPass;
     // Setup post-processing
     const postProcessing = new THREE.PostProcessing(renderer);
@@ -43,11 +39,7 @@ export const PostProcessing = ({
   }, [renderer, scene, camera]);
 
   useFrame(() => {
-    if (bloomPassRef.current) {
-      bloomPassRef.current.strength.value = strength;
-      bloomPassRef.current.radius.value = radius;
-      bloomPassRef.current.threshold.value = threshold;
-    }
+    
     if(postProcessingRef.current){
       postProcessingRef.current.render()
     }

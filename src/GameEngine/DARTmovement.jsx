@@ -6,7 +6,8 @@ import { PostProcessing } from "./PostProcessing";
 import Experience from "./Experience";
 import {useControls} from "leva"
 import * as THREE from "three/webgpu";
-export default function DARTPosition() {
+import Platform from "@/Models/Platform";
+export default function DARTmovement() {
     
   return (
     <>
@@ -18,14 +19,15 @@ export default function DARTPosition() {
         }}
         style={{ background: "#1a1a1a" }}
       >
-        <Environment preset="city"/>
+        
         {/*<Stats /> */}
+        <Environment preset="city"/>
         <PerspectiveCamera makeDefault position={[0, 30, 80]} fov={50} />
         <OrbitControls target={[10, 0, 0]}/>
-        <ambientLight intensity={1.0} />
+        <ambientLight intensity={2.0} />
         <Suspense fallback={<Html><h1>loading...</h1></Html>}>
           <Physics>
-            <Experience/>
+            <Platform/>
           </Physics>
         </Suspense>
         <PostProcessing />

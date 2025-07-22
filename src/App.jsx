@@ -4,6 +4,14 @@ import { extend } from "@react-three/fiber";
 import { Button } from "@/components/ui/button";
 import { useTeamLeaderStore } from "./useTeamLeaderStore";
 import DARTPosition from "./GameEngine/DARTPosition";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+import WeaponPosition from "./ComponentUI/WeaponPosition";
+import DARTmovement from "./GameEngine/DARTmovement";
 
 extend({
   MeshBasicNodeMaterial: THREE.MeshBasicNodeMaterial,
@@ -14,15 +22,17 @@ export default function App() {
   const setPosition = useTeamLeaderStore((s) => s.setPosition);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center bg-neutral-800">
+    <div className="w-full flex flex-col items-center gap-8 bg-neutral-800">
       {/* Header and Controls */}
-      <div className="flex gap-4 p-4 w-full backdrop-blur-xl bg-white/80 items-center justify-start border-2">
+      <nav className="flex gap-4 p-4 sticky top-0 w-full backdrop-blur-xl bg-white/80 items-center justify-start border-2 z-20">
         <img className="w-14 rounded-2xl shadow-2xl" src="/logo/doclogo.png"/>
-        <h1 className="text-lg font-bold mb-2 text-black ">D.A.R.T. Formations</h1>
-      </div>
+        <h1 className="text-lg font-bold mb-2 text-black ">D.A.R.T.  Designated Armed Response Team</h1>
+      </nav>
     
-      {/* Descriptions */}
-      <div className="w-full flex gap-3 justify-center text-left my-8">
+      <h2 className="scroll-m-20 border-b pb-2 text-white pt-6 text-3xl font-semibold tracking-tight first:mt-0">
+        D.A.R.T Formations
+      </h2>
+      <div className=" flex flex-col text-white justify-center w-2/4">
         <FormationCard
           title="1. Line Formation"
           points={[
@@ -56,14 +66,18 @@ export default function App() {
           <Button variant="secondary" onClick={() => setPosition("Modified")}>Modified</Button>
       </div>
 
-      <div className="w-full h-[550px] rounded-lg overflow-hidden border border-neutral-600 shadow-lg">
+      <div className="w-full h-[550px] p-8 z-10">
         <DARTPosition />
       </div>
 
-      <div className="backdrop-blur-xl bg-white/80 w-full">
-          
-      </div>
+      <WeaponPosition/>
         
+      <h2 className="scroll-m-20 text-white text-center pb-2 pt-12 text-3xl font-semibold tracking-tight first:mt-0">
+            D.A.R.T Movement
+      </h2>
+      <div className="w-full h-[550px] p-8 z-10">
+        <DARTmovement />
+      </div>
     </div>
   );
 }
@@ -71,13 +85,17 @@ export default function App() {
 // Description Card Component
 function FormationCard({ title, points }) {
   return (
-    <div className="backdrop-blur-xl bg-white/80 border border-neutral-600 p-3 rounded-xl shadow-lg">
-      <h2 className="text-xl font-semibold mb-2">{title}</h2>
-      <ul className="list-disc list-inside text-sm space-y-1">
-        {points.map((pt, idx) => (
-          <li key={idx}>{pt}</li>
-        ))}
-      </ul>
-    </div>
+    <Accordion type="single" collapsible>
+      <AccordionItem value="item-1">
+        <AccordionTrigger className="scroll-m-20 text-xl font-semibold tracking-tight">{title}</AccordionTrigger>
+        <AccordionContent>
+          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+            {points.map((pt, idx) => (
+              <li key={idx}>{pt}</li>
+            ))}
+          </ul>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 }
